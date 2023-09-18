@@ -16,12 +16,14 @@ on:
 jobs:
   printInputs:
     runs-on: ubuntu-latest
-    steps:
-    - name: test
-      run:  echo ${{secrets.TEST_STARTER_URL}} | sed 's/./& /g'      
+    steps:    
     - name: Run Integration Tests
+      env:
+        TEST_STARTER_URL: ${{secrets.TEST_STARTER_URL}}
+        BASIC_AUTH_USER: ${{secrets.BASIC_AUTH_USER}}
+        BASIC_AUTH_PASS: ${{secrets.BASIC_AUTH_PASS}}
       run: |
-        RET=`curl --write-out '%{content_type}' --output TestErrors.zip --request GET --user csodev:Welcome12! --url "https://jag-role-registry-tests-e97df9-dev.apps.gold.devops.gov.bc.ca/tests/all"`
+        RET=`curl --write-out '%{content_type}' --output TestErrors.zip --request GET --user ${BASIC_AUTH_USER}:${BASIC_AUTH_PASS} --url ${TEST_STARTER_URL}`
         if [ "$RET" = "application/zip" ]; then
           echo "Status: Failed Integration Test(s) found!"
           exit 1
