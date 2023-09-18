@@ -4,14 +4,20 @@
 name: testCSO
 
 on:
+  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
     inputs:
-      logLevel:
-        description: 'Log level'     
+      app:
+        description: 'App Name (jag-role-registry)'    
         required: true
-        default: 'warning'
-      tags:
-        description: 'Test scenario tags' 
+        default: jag-role-registry
+      env:
+        type: choice
+        description: Image Target environment
+        options: 
+        - dev    
+        required: true
+        default: 'dev'
 
 jobs:
   printInputs:
