@@ -1,23 +1,14 @@
 # This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
 
-name: testCSO
+name: Manually run AutomationTest
 
 on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-    inputs:
-      app:
-        description: 'App Name (jag-role-registry)'    
-        required: true
-        default: jag-role-registry
-      env:
-        type: choice
-        description: Image Target environment
-        options: 
-        - dev    
-        required: true
-        default: 'dev'
+    inputs:  
+      tags:
+        description: 'Test scenario tags'         
 
 jobs:
   printInputs:
